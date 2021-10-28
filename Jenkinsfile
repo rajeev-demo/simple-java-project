@@ -2,9 +2,7 @@
 
 pipeline{
 
-agent {
-  label 'slave1'
-}
+agent any
 
 stages{
 	
@@ -20,10 +18,15 @@ stages{
 
 	steps {
 
-        sh ''' mvn clean install'''
+        sh '''mvn clean install'''
         
       }
 	}
+}
+post {
+  always {
+    emailext body: 'Test Message', subject: 'Test Subject', to: 'rajeev67780214@gmail.com'
+  }
 }
 
 }
