@@ -16,7 +16,7 @@ stages{
         
       }
 	}
-	stage(scm){
+	stage(build){
 
 	steps {
 
