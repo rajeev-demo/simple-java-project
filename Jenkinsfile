@@ -27,7 +27,7 @@ stages{
             docker build -t demo .
 }
 }
-stage(docker){
+stage(push){
          steps {
 
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 759744306820.dkr.ecr.us-east-1.amazonaws.com
