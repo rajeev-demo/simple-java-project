@@ -24,18 +24,20 @@ stages{
 	}
        stage(docker){
          steps {
-            docker build -t demo .
-}
-}
-stage(push){
+            sh '''docker build -t demo . '''
+         }
+       }
+
+        stage(push) {
          steps {
+      sh '''#!/bin/bash 
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 759744306820.dkr.ecr.us-east-1.amazonaws.com
+        docker tag demo:latest 759744306820.dkr.ecr.us-east-1.amazonaws.com/demo:2.0
+        docker push 759744306820.dkr.ecr.us-east-1.amazonaws.com/demo:2.0 
+        '''
+         }
 
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 759744306820.dkr.ecr.us-east-1.amazonaws.com
-docker tag demo:latest 759744306820.dkr.ecr.us-east-1.amazonaws.com/demo:2.0
-docker push 759744306820.dkr.ecr.us-east-1.amazonaws.com/demo:2.0
 }
-}
-
 }
 post {
   always {
